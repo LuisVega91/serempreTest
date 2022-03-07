@@ -1,0 +1,7 @@
+<ul>
+  <li *ngFor="let favorite of favorites" (click)="setSelectedItem(favorite)">
+    {{favorite.original_title}}
+  </li>
+</ul>
+<div>Current Page {{ currentPage }}</div>
+<div (click)="getData()">next</div>

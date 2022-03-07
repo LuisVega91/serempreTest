@@ -33,5 +33,4 @@ export class FavoritesComponent implements OnInit {
 
 
 }
-//fcastillo@serempre.com
-//dvillanueva@serempre.com
+

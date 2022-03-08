@@ -9,12 +9,14 @@ import { FavoriteResult, FavoritesModel } from '../models/favorites.model';
 })
 export class FavoritesService {
 
-  selectedItem: BehaviorSubject<FavoriteResult> = new BehaviorSubject({});
+  url_path = environment.url_path;
+  api_key = environment.api_key;
 
+  selectedItem: BehaviorSubject<FavoriteResult> = new BehaviorSubject({});
   constructor(private http: HttpClient) { }
 
   getFavorites(page = 1 ): Observable<FavoritesModel>{
-    return this.http.get(environment.url_path+'/movie/popular?api_key=' + environment.api_key + '&page=' + page)
+    return this.http.get(`${this.url_path}/movie/popular?api_key=${this.api_key}&page=${page}`)
     .pipe(map(resp => new FavoritesModel(resp)));
   }
 

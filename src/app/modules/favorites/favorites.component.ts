@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FavoriteResult } from 'src/app/shared/models/favorites.model';
+import { FavoriteModel } from 'src/app/shared/models/favorites.model';
 import { FavoritesService } from 'src/app/shared/services/favorites.service';
 
 @Component({
@@ -9,26 +9,30 @@ import { FavoritesService } from 'src/app/shared/services/favorites.service';
 })
 export class FavoritesComponent implements OnInit {
 
-  favorites: FavoriteResult[] = [];
-  currentPage: number = 0;
+  favorites: FavoriteModel[] = [];
+  currentPage: number = 1;
 
   constructor(
     private favoritesService: FavoritesService
   ) { }
 
   ngOnInit(): void {
-    this.getData()
+    this.getFavoritesSubscription()
   }
 
-  setSelectedItem(favorite: FavoriteResult) {
+  setSelectedItem(favorite: FavoriteModel) {
     this.favoritesService.setSelectedItem(favorite);
   }
 
-  getData() {
-    this.currentPage++
+  getFavoritesSubscription() {
     this.favoritesService.getFavorites(this.currentPage).subscribe(resp => {
-      this.favorites = resp.results;
+      this.favorites = resp;
     })
+  }
+
+  nextPage(){
+    this.currentPage++;
+    this.getFavoritesSubscription();
   }
 
 

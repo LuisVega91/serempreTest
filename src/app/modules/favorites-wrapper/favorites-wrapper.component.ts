@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FavoriteResult } from 'src/app/shared/models/favorites.model';
+import { FavoriteModel } from 'src/app/shared/models/favorites.model';
 import { FavoritesService } from 'src/app/shared/services/favorites.service';
 
 @Component({
@@ -9,13 +9,17 @@ import { FavoritesService } from 'src/app/shared/services/favorites.service';
 })
 export class FavoritesWrapperComponent implements OnInit {
 
-  selectedItem: FavoriteResult = {};
+  selectedItem: FavoriteModel = new FavoriteModel();
 
   constructor(
     private favoritesService: FavoritesService
   ) { }
 
   ngOnInit(): void {
+    this.getSelectedItemSubscription();
+  }
+
+  getSelectedItemSubscription(){
     this.favoritesService.getSelectedItemSubscription().subscribe( resp => {
       this.selectedItem = resp;
     })
